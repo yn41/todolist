@@ -1,0 +1,68 @@
+html,body {
+  border:none;
+  font-family:$family;
+  font-size:16px;
+  line-height: 2;
+  font-weight: 400;
+  color:$black;
+}
+html,body,div,ul,li,dl,dt,dd,ol,p,h1,h2,h3,h4,h5,h6,form,fieldset {
+  margin:0;
+  padding:0;
+}
+html {
+  min-width: 1024px;
+  width: 100%;
+  -webkit-text-size-adjust:none;
+}
+h1,h2,h3,h4,h5,h6,strong,b,th{
+  font-weight:$bold;
+}
+article, aside, details, figcaption, figure, footer, header, menu, nav, section, main {display: block;}
+ul,ol,dl {
+  list-style:none;
+}
+em,address{font-style:normal}
+img {
+  border:0;
+  vertical-align:top;
+}
+fieldset {
+  border:0;
+}
+table {
+  table-layout: fixed;
+  width:100%;
+  border-collapse:collapse;
+}
+caption{
+  display: none;
+}
+button {
+  border:none;
+  background:none;
+  cursor:pointer;
+  outline:none;
+  padding: 0;
+}
+input[type=text], input[type=password], input[type=tel], input[type=email], input[type=button], input[type=submit], input[type=reset], button, select {
+  font-family:$family;
+  color:$black;
+}
+
+a {
+  color:$black;
+  &:active, &:link, &:visited, &:hover{
+    text-decoration: none;
+  }
+}
+.blind {
+  display: block;
+  position: absolute;
+  top: -2000em;
+  left: -2000em;
+  width: 1px;
+  height: 1px;
+  margin: 0px !important;
+  text-indent: 2000em;
+}

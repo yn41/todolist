@@ -1,0 +1,156 @@
+body{  
+    background: radial-gradient(#ffd2d2, #badbe6) fixed;
+    min-width: 1100px;
+    overflow: auto
+}
+header{
+    padding: 0 50px;
+    height: 50px;
+    line-height: 50px;
+    background: rgba(255,255,255,0.6);
+    &:after{
+        @include clear;
+    }
+    h1{
+        float: left;
+        font-size: 24px;
+    }
+    nav{
+        float: right;
+        a{
+            padding: 0 20px;
+            font-weight: $bold;
+        }
+    }
+}
+//todo wrap
+.todo{
+    margin: 70px auto 0;
+    width: 750px;
+    .ipt{
+        padding: 0 20px;
+        width: 100%;
+        height: 45px;
+        line-height: 45px;
+        box-sizing: border-box;
+        background: none;
+        border:none;
+        font-size: 14px;
+        height: 45px;
+        line-height: 45px;
+        &:focus, &:hover{
+            outline: none;
+            background: rgba(255,255,255,0.2);
+        }
+    }
+    button{
+        height: 45px;
+        line-height: 45px;
+        display:inline-block;
+        vertical-align: middle;
+        opacity: 0.8;
+        &:hover{
+            opacity: 1;
+        }
+    }
+    .bx_ipt{
+        width: 100%;
+        border-radius: 10px;
+        overflow: hidden;
+        &:after{
+            @include clear;
+        }
+        .ipt{
+            width: calc(100% - 60px);
+            float: left;
+            border:$point solid 1px;
+            border-right: none;
+            border-radius: 10px 0 0 10px ;
+        }
+        .btn_com{
+            font-size: 32px;
+            font-weight: bold;
+            background:$point;
+            color: $white;
+            width: 60px;
+            height: 45px;
+            overflow: hidden;
+            float: left;
+            text-align: center;
+            &:before{
+                content:"+";
+                display: block;
+                margin-top:-4px;
+            }
+            span{
+                @include blind;
+            }
+        }
+    }
+    .lst{
+        margin: 35px 0;
+        li{
+            height: 45px;
+            line-height: 45px;
+            box-sizing: border-box;
+            border-bottom:$point solid 1px;
+            position: relative;
+        }
+        .chk{
+            display: none;
+            &+.chk_label{
+                padding-left: 40px;
+                @include bg("chk.png", no-repeat, 10px 55%, 20px);
+                box-sizing: border-box;
+                width: calc(100% - 75px);
+                display: block;
+            }
+            &:checked+label{
+                @include bg("chk_on.png", no-repeat, 10px 55%, 20px);
+                text-decoration:line-through;
+                color: $point;
+            }
+        }
+        .btn_modi{
+            @include blind;
+            @include bg("btn_modi.png", no-repeat, 50% 60%, 100%);
+            width: 20px;
+            position:absolute;
+            top:0;
+            right:45px;
+        }
+        .btn_delete{
+            @include blind;
+            @include bg("btn_delete.png", no-repeat, 50% 50%, 100%);
+            width: 20px;
+            position:absolute;
+            top:0;
+            right:10px;
+        }
+        .btn_com{
+            @include blind;
+            @include bg("btn_com.png", no-repeat, 50% 50%, 100%);
+            width: 20px;
+            top:0;
+            right:10px;
+            position:absolute;
+        }
+        .ipt{
+            float: left;
+            border-right: none;
+            &:focus{
+                outline: none;
+            }
+        }
+    }
+    .btn_reset{
+        float:right;
+        margin-top: 30px;
+        padding: 0 20px;
+        height: 45px;
+        background: $point;
+        border-radius: 5px;
+        color:$white;
+        font-weight: $bold;
+    }
+}
