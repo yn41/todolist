@@ -82,9 +82,6 @@ header{
                 display: block;
                 margin-top:-4px;
             }
-            span{
-                @include blind;
-            }
         }
     }
     .lst{
@@ -95,45 +92,69 @@ header{
             box-sizing: border-box;
             border-bottom:$point solid 1px;
             position: relative;
-        }
-        .chk{
-            display: none;
-            &+.chk_label{
+            span{
                 padding-left: 40px;
                 @include bg("chk.png", no-repeat, 10px 55%, 20px);
                 box-sizing: border-box;
                 width: calc(100% - 75px);
                 display: block;
             }
-            &:checked+label{
-                @include bg("chk_on.png", no-repeat, 10px 55%, 20px);
-                text-decoration:line-through;
-                color: $point;
+            &.done{
+                span{
+                    width: calc(100% - 35px);
+                    @include bg("chk_on.png", no-repeat, 10px 55%, 20px);
+                    text-decoration:line-through;
+                    color: $point;
+                }
+                .btn_modi{
+                    display: none;
+                }
             }
+            &:hover{
+                background: rgba(136,186,207,0.1);
+            }
+            .bx_modi{
+                display: none;
+            }
+        }
+        button{
+            position:absolute;
+            top:0;
+            z-index: 2;
         }
         .btn_modi{
             @include blind;
             @include bg("btn_modi.png", no-repeat, 50% 60%, 100%);
             width: 20px;
-            position:absolute;
-            top:0;
             right:45px;
         }
         .btn_delete{
             @include blind;
             @include bg("btn_delete.png", no-repeat, 50% 50%, 100%);
             width: 20px;
-            position:absolute;
-            top:0;
             right:10px;
         }
         .btn_com{
             @include blind;
             @include bg("btn_com.png", no-repeat, 50% 50%, 100%);
             width: 20px;
-            top:0;
             right:10px;
-            position:absolute;
+        }
+        .btn_cancle{
+            font-size: 24px;
+            font-weight: bold;
+            width: 20px;
+            right:45px;
+            color:$point;
+            &:before{
+                content:"X";
+                display: block;
+                margin-top:-2px;
+            }
+            span{
+                @include blind;
+            }
+
         }
         .ipt{
             float: left;
@@ -145,7 +166,6 @@ header{
     }
     .btn_reset{
         float:right;
-        margin-top: 30px;
         padding: 0 20px;
         height: 45px;
         background: $point;
