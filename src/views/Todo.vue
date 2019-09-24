@@ -118,7 +118,6 @@ export default {
         item.isDone ? cnt.comp++ : cnt.ing++;
       });
       this.cnt = cnt;
-      console.log(cnt);
     }
   },
   created() {
