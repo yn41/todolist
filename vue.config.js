@@ -1,7 +1,8 @@
 module.exports = {
+  publicPath : 'todolist',
   css: {
     sourceMap: true
   },
 
-  outputDir: 'docs'
+  outputDir: 'dist'
 }
