@@ -3,5 +3,5 @@ module.exports = {
     sourceMap: true
   },
 
-  publicPath: ''
+  outputDir: 'docs'
 }
