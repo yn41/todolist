@@ -1,7 +1,7 @@
 <template>
   <div class="todo">
     <TodoInput @addItemEvent="addItem" />
-    <TodoList :props="todoList" @toggleItemEvent="toggleItem" @resetEvent="resetAll" @deleteEvent="deleteItem" @chageModeEvent="chageMode" @modiEvent="modiItem" />
+    <TodoList :props="todoList" :cnt="cnt" @toggleItemEvent="toggleItem" @resetEvent="resetAll" @deleteEvent="deleteItem" @chageModeEvent="chageMode" @modiEvent="modiItem" @chageSortEvent="chageSort" />
   </div> 
 </template>
 
@@ -13,36 +13,43 @@ export default {
   data(){
     return{
       todoList: [],
-      idx:0
+      cnt:[],
+      idx:0,
+      sort:"regi",
     }
   },
   methods:{
     addItem($item){
+      let date = new Date();
+      let today = date.getFullYear()+"."+date.getMonth()+"."+date.getDate()+" "+ date.getHours()+":"+date.getMinutes()+":"+date.getSeconds();
       let data = {
         todo : $item,
         key : this.idx, 
+        date : today,
         isDone: false,
         isMode: false
       }
       this.todoList.push(data);
       //localstorage 저장
       localStorage.setItem(data.key, JSON.stringify(data));
-      
+      this.chageSort(this.sort);
       this.idx += 1;
+      this.getCnt();
     },
     toggleItem($key, $idx, $isDone){
       this.todoList[$idx].isDone= $isDone; 
       let data = this.todoList[$idx];
       localStorage.setItem($key, JSON.stringify(data));
+      this.getCnt();
     },
     deleteItem($key, $idx){
       this.todoList.splice($idx, 1); 
       localStorage.removeItem($key);
+      this.getCnt();
     },
     chageMode($key, $idx, $isMode){
         console.log($isMode);
       if(!$isMode){
-        console.log("Fdff");
         this.todoList.forEach(item => {
           item.isMode = false; 
         });
@@ -60,6 +67,58 @@ export default {
       this.todoList =[];
       this.idx = 0;
       localStorage.clear();
+      this.getCnt();
+    },
+    chageSort($type){
+      this.sort = $type;
+      if(localStorage.length > 1){
+        //등록순 & 최신순
+        if($type == "regi" || $type == "new"){
+          this.todoList.sort(function(val1, val2){
+            let x = new Date(val1.date).getTime();
+            let y = new Date(val2.date).getTime();
+            //0 또는 양수를 음수를 반환. 0:동일, 1 : 이상 반환은 무효. 숫자 대신 >사용 가능
+            if($type == "regi") //등록순
+              return ((x < y) ? -1 : ((x > y) ? 1 : 0));   //오름차순
+            else //최신순
+              return ((x < y) ? 1 : ((x > y) ? -1 : 0));   //내림차순 
+          });
+        }
+        //가나다순 
+        if($type == "abc"){
+          this.todoList.sort(function(val1, val2){
+            let x = val1.todo;
+            let y = val2.todo;
+            return ((x < y) ? -1 : ((x > y) ? 1 : 0));   //오름차순
+          });
+        }
+        //완료순 
+        if($type == "comp" || $type == "ing"){
+          this.todoList.sort(function(val1, val2){
+            let x = val1.isDone;
+            let y = val2.isDone;
+            let z = new Date(val1.date).getTime();
+            let w = new Date(val2.date).getTime();
+            if($type == "comp") //완료순 
+              return ((x < y) ? 1 : ((x > y) ? -1 : ((z > w) ? 1 : ((z > w) ? -1 : 0))));   //내림차순 
+            else //비완료순 
+              return ((x < y) ? -1 : ((x > y) ? 1 : ((z > w) ? 1 : ((z > w) ? -1 : 0))));   //내림차순 
+          });
+        }
+      }
+    },
+    getCnt(){
+      //cnt 세팅
+      let cnt = {
+        total : this.todoList.length,
+        ing : 0,
+        comp : 0
+      }
+      this.todoList.forEach(item => {
+        item.isDone ? cnt.comp++ : cnt.ing++;
+      });
+      this.cnt = cnt;
+      console.log(cnt);
     }
   },
   created() {
@@ -73,20 +132,12 @@ export default {
           let str = localStorage[localStorage.key(i)];
           let obj = JSON.parse(str);
           this.todoList.push(obj);  
-        }else{
         }
       }
-      if(localStorage.length > 1){
-        //입력순 sort
-        this.todoList.sort(function(val1, val2){
-          let x = val1.key;
-          let y = val2.key;
-          //0 또는 양수를 음수를 반환. 0:동일, 1 : 이상 반환은 무효. 숫자 대신 >사용 가능
-          return ((x < y) ? -1 : ((x > y) ? 1 : 0));   
-        });
-        //idx 맞추기
-        this.idx = this.todoList[this.todoList.length-1].key + 1;
-      }
+      this.chageSort("regi");
+      this.getCnt();
+      //idx 맞추기
+      this.idx = this.todoList[this.todoList.length-1].key + 1;
     }
   },
   components: { 

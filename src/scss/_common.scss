@@ -26,21 +26,19 @@ header{
 //todo wrap
 .todo{
     margin: 70px auto 0;
-    width: 750px;
+    width: 900px;
     .ipt{
         padding: 0 20px;
         width: 100%;
         height: 45px;
         line-height: 45px;
+        font-size: 14px;
         box-sizing: border-box;
         background: none;
         border:none;
-        font-size: 14px;
-        height: 45px;
-        line-height: 45px;
         &:focus, &:hover{
             outline: none;
-            background: rgba(255,255,255,0.2);
+            background: rgba(136,186,207,0.1);
         }
     }
     button{
@@ -84,27 +82,67 @@ header{
             }
         }
     }
+    .content{
+        margin-top:50px;
+    }
+    .no_data{
+        margin: 0 0 20px;
+        height: 350px;
+        display:flex;
+        justify-content: center;
+        align-items: center;
+        border-top:#cacaca 1px solid;
+        border-bottom:#cacaca 1px solid;
+    }
+    .sort{
+        margin-bottom: 30px;
+        text-align: right;
+    }
+    .slct{
+        padding: 5px 10px;
+        border-radius: 5px;
+        min-width: 150px;
+        background: none;
+        border: 1px solid $point;
+        &:focus{
+            outline:none;
+        }
+    }
     .lst{
-        margin: 35px 0;
+        margin: 0 0 20px;
+        min-height: 350px;
         li{
-            height: 45px;
-            line-height: 45px;
+            line-height: 1.6;
             box-sizing: border-box;
             border-bottom:$point solid 1px;
             position: relative;
-            span{
-                padding-left: 40px;
+            display:flex;
+            align-items: center;
+            .view{
+                width: 100%;
+                padding: 10px 0 10px 45px;
                 @include bg("chk.png", no-repeat, 10px 55%, 20px);
                 box-sizing: border-box;
-                width: calc(100% - 75px);
-                display: block;
+                line-height: 1.4;
+                .txt{
+                    display: block;
+                    width: calc(100% - 80px); 
+                }
+                .date{
+                    font-size: 12px;
+                    color: #999;
+                }
             }
             &.done{
-                span{
-                    width: calc(100% - 35px);
+                .view{
                     @include bg("chk_on.png", no-repeat, 10px 55%, 20px);
-                    text-decoration:line-through;
-                    color: $point;
+                    span{
+                        text-decoration:line-through;
+                        color: $point;
+                    }
+                    .txt{
+                        width: calc(100% - 40px); 
+                    }
                 }
                 .btn_modi{
                     display: none;
@@ -113,18 +151,30 @@ header{
             &:hover{
                 background: rgba(136,186,207,0.1);
             }
-            .bx_modi{
-                display: none;
+        }
+        .modi{
+            width: 100%;
+        }
+        .ipt{
+            width: 100%; 
+            min-height: 58px;
+            height: 100%;
+            padding: 10px 80px 10px 20px;
+            float: left;
+            border-right: none;
+            &:focus{
+                outline: none;
             }
         }
         button{
             position:absolute;
             top:0;
             z-index: 2;
+            height: 100%;
         }
         .btn_modi{
             @include blind;
-            @include bg("btn_modi.png", no-repeat, 50% 60%, 100%);
+            @include bg("btn_modi.png", no-repeat, 50% 55%, 100%);
             width: 20px;
             right:45px;
         }
@@ -146,6 +196,9 @@ header{
             width: 20px;
             right:45px;
             color:$point;
+            display: flex;
+            justify-content: center;
+            align-items: center;
             &:before{
                 content:"X";
                 display: block;
@@ -156,13 +209,12 @@ header{
             }
 
         }
-        .ipt{
-            float: left;
-            border-right: none;
-            &:focus{
-                outline: none;
-            }
-        }
+    }
+    .bx_total{
+        text-align: right;
+        padding-right:5px;
+        margin-bottom: 30px;
+        font-size: 14px;
     }
     .btn_reset{
         float:right;
