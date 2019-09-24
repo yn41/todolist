@@ -1,5 +1,5 @@
 module.exports = {
-  publicPath : 'https://yn41.github.io/todolist/dist/',
+  publicPath : '//yn41.github.io/todolist/dist/',
   css: {
     sourceMap: true
   },

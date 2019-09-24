@@ -8,12 +8,12 @@ export default new Router({
   mode: 'history', //라우터 #제거
   routes: [
     {
-      path: '/',
+      path: 'todolist/',
       name: 'todo',
       component: todo,
     },
     {
-      path: '/about',
+      path: 'todolist/about',
       name: 'about',
       // route level code-splitting
       // this generates a separate chunk (about.[hash].js) for this route
