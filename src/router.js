@@ -10,8 +10,8 @@ export default new Router({
     {
       path: '/todolist',
       name: '/todolist/todo',
-      component: todo,
-    },
+      component: todo,  
+    }, 
     {
       path: '/todolist/about',
       name: 'about',
