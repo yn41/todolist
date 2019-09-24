@@ -5,11 +5,11 @@
   </div>
 </template>
 <script>
-import todoHeader from "@/components/TodoHeader.vue";
+import todoHeader from '@/components/TodoHeader.vue';
 
 export default {
-  components:{
-    todoHeader
-  }
-}
+  components: {
+    todoHeader,
+  },
+};
 </script>

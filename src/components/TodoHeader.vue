@@ -5,5 +5,5 @@
             <router-link to="/todolist">TodoList</router-link> |
             <router-link to="/todolist/about">예정</router-link>
         </nav>
-    </header> 
+    </header>
 </template>

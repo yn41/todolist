@@ -5,13 +5,13 @@ import todo from './views/Todo.vue';
 Vue.use(Router);
 
 export default new Router({
-  mode: 'history', //라우터 #제거
+  mode: 'history', // 라우터 #제거
   routes: [
     {
-      path: '/todolist',
+      path: '/todolist/',
       name: '/todolist/todo',
-      component: todo,  
-    }, 
+      component: todo,
+    },
     {
       path: '/todolist/about',
       name: 'about',

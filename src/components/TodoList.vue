@@ -36,35 +36,35 @@
         </div>
     </div>
 </template>
-<script> 
+<script>
 export default {
-    props:["props", "cnt"],
-    methods:{
-        toggleItem($key, $idx, $isDone){
-            event.stopPropagation();
-            // let state ="";
-            $isDone = ($isDone)?false:true;
-            this.$emit("toggleItemEvent", $key, $idx, $isDone);
-        },
-        chageMode($key, $idx, $isMode){
-            event.stopPropagation();
-            this.$emit("chageModeEvent", $key, $idx, $isMode);
-        },
-        modiItem($key, $idx){
-            event.stopPropagation();
-            this.$emit("modiEvent", $key, $idx, this.$refs.todo_modi[0].value);
-        },
-        deleteItem($key, $idx){
-            event.stopPropagation();
-            this.$emit("deleteEvent", $key, $idx);
-        },
-        resetAll(){
-            event.stopPropagation();
-            this.$emit("resetEvent");
-        },
-        chageSort($val){
-            this.$emit("chageSortEvent", $val);
-        }
+  props: ['props', 'cnt'],
+  methods: {
+    toggleItem($key, $idx, $isDone) {
+      event.stopPropagation();
+      // let state ="";
+      $isDone = !($isDone);
+      this.$emit('toggleItemEvent', $key, $idx, $isDone);
     },
-}
+    chageMode($key, $idx, $isMode) {
+      event.stopPropagation();
+      this.$emit('chageModeEvent', $key, $idx, $isMode);
+    },
+    modiItem($key, $idx) {
+      event.stopPropagation();
+      this.$emit('modiEvent', $key, $idx, this.$refs.todo_modi[0].value);
+    },
+    deleteItem($key, $idx) {
+      event.stopPropagation();
+      this.$emit('deleteEvent', $key, $idx);
+    },
+    resetAll() {
+      event.stopPropagation();
+      this.$emit('resetEvent');
+    },
+    chageSort($val) {
+      this.$emit('chageSortEvent', $val);
+    },
+  },
+};
 </script>

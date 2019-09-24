@@ -1,9 +1,8 @@
 module.exports = {
   // publicPath : '//yn41.github.io/todolist/dist/',
-  publicPath: process.env.NODE_ENV === 'production'?'/todolist/':'/'
-  ,
+  publicPath: process.env.NODE_ENV === 'production' ? '/todolist/' : '/',
   css: {
-    sourceMap: true
+    sourceMap: true,
   },
-  outputDir: 'dist'
-}
+  outputDir: 'dist',
+};
