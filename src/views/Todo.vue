@@ -1,7 +1,7 @@
 <template>
   <div class="todo">
     <TodoInput @addItemEvent="addItem" />
-    <TodoList :props="todoList" :cnt="cnt" @toggleItemEvent="toggleItem" @resetEvent="resetAll" @deleteEvent="deleteItem" @chageModeEvent="chageMode" @modiEvent="modiItem" @chageSortEvent="chageSort" />
+    <TodoList :todoList="todoList" :cnt="cnt" :sort="sort" @toggleItemEvent="toggleItem" @resetEvent="resetAll" @deleteEvent="deleteItem" @chageModeEvent="chageMode" @modiEvent="modiItem" @chageSortEvent="chageSort" @updateListEvent="updateList" />
   </div>
 </template>
 
@@ -48,7 +48,6 @@ export default {
       this.getCnt();
     },
     chageMode($key, $idx, $isMode) {
-      console.log($isMode);
       if (!$isMode) {
         this.todoList.forEach((item) => {
           item.isMode = false;
@@ -64,10 +63,12 @@ export default {
       localStorage.setItem($key, JSON.stringify(data));
     },
     resetAll() {
+      console.log();
       this.todoList = [];
       this.idx = 0;
       localStorage.clear();
       this.getCnt();
+      console.log(this.todoList);
     },
     chageSort($type) {
       this.sort = $type;
@@ -82,17 +83,15 @@ export default {
             { return ((x < y) ? -1 : ((x > y) ? 1 : 0)); } // 오름차순
             return ((x < y) ? 1 : ((x > y) ? -1 : 0)); // 내림차순
           });
-        }
+        }else if ($type == 'abc') {
         // 가나다순
-        if ($type == 'abc') {
           this.todoList.sort((val1, val2) => {
             const x = val1.todo;
             const y = val2.todo;
             return ((x < y) ? -1 : ((x > y) ? 1 : 0)); // 오름차순
           });
-        }
+        }else if ($type == 'comp' || $type == 'ing') {
         // 완료순
-        if ($type == 'comp' || $type == 'ing') {
           this.todoList.sort((val1, val2) => {
             const x = val1.isDone;
             const y = val2.isDone;
@@ -117,6 +116,9 @@ export default {
       });
       this.cnt = cnt;
     },
+    updateList($list){
+      this.todoList = $list;
+    }
   },
   created() {
     // 페이지가 로딩될때 실행
@@ -134,12 +136,13 @@ export default {
       this.chageSort('regi');
       this.getCnt();
       // idx 맞추기
-      this.idx = this.todoList[this.todoList.length - 1].key + 1;
-    }
+      if(this.todoList.length > 0)
+        this.idx = this.todoList[this.todoList.length - 1].key + 1;
+    };
   },
   components: {
     TodoInput,
-    TodoList,
+    TodoList
   },
 };
 </script>

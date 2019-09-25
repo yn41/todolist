@@ -1,6 +1,6 @@
 <template>
     <header>
-        <h1>🍧 Vue Study</h1>
+        <h1><a href="/todolist">🍧 Vue Study</a></h1>
         <nav>
             <router-link to="/todolist">TodoList</router-link> |
             <router-link to="/todolist/about">예정</router-link>

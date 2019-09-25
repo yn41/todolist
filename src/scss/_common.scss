@@ -111,7 +111,7 @@ header{
     .lst{
         margin: 0 0 20px;
         min-height: 350px;
-        li{
+        .unit{
             line-height: 1.6;
             box-sizing: border-box;
             border-bottom:$point solid 1px;
@@ -124,25 +124,25 @@ header{
                 @include bg("chk.png", no-repeat, 10px 55%, 20px);
                 box-sizing: border-box;
                 line-height: 1.4;
-                .txt{
-                    display: block;
-                    width: calc(100% - 80px); 
-                }
-                .date{
-                    font-size: 12px;
-                    color: #999;
-                }
+            }
+            .txt{
+                display: block;
+                width: calc(100% - 80px); 
+            }
+            .date{
+                font-size: 12px;
+                color: #999;
             }
             &.done{
                 .view{
                     @include bg("chk_on.png", no-repeat, 10px 55%, 20px);
-                    span{
-                        text-decoration:line-through;
-                        color: $point;
-                    }
-                    .txt{
-                        width: calc(100% - 40px); 
-                    }
+                }
+                span{
+                    text-decoration:line-through;
+                    color: $point;
+                }
+                .txt{
+                    width: calc(100% - 40px); 
                 }
                 .btn_modi{
                     display: none;
@@ -154,6 +154,32 @@ header{
         }
         .modi{
             width: 100%;
+        }
+        .ghost{
+            color:#b4babd;
+            .view{
+                @include bg("chk_dis.png", no-repeat, 10px 55%, 20px);
+            }
+            &.done{
+                 .view{
+                    @include bg("chk_on_dis.png", no-repeat, 10px 55%, 20px);
+                }
+                span{
+                    color:#b4babd;
+                }
+            }
+            .btn_modi{
+                @include bg("btn_modi_dis.png", no-repeat, 50% 55%, 100%);
+            }
+            .btn_delete{
+                @include bg("btn_delete_dis.png", no-repeat, 50% 50%, 100%);
+            }
+            .btn_com{
+                @include bg("btn_com_dis.png", no-repeat, 50% 50%, 100%);
+            }
+            span,.ipt,.btn_cancle{
+                color:#b4babd;
+            }
         }
         .ipt{
             width: 100%; 
