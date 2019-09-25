@@ -61,6 +61,7 @@ export default {
       this.todoList[$idx].todo = $todo;
       const data = this.todoList[$idx];
       localStorage.setItem($key, JSON.stringify(data));
+      console.log("--modiItem---");
     },
     resetAll() {
       console.log();

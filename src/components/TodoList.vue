@@ -83,6 +83,9 @@ export default {
     updateList(){
       this.$emit('updateListEvent', this.list);
       this.slct = this.sort
+      console.log("updateList");
+      console.log(this.list);
+      console.log(this.todoList);
     }
   },
   components:{
@@ -93,7 +96,8 @@ export default {
     this.slct = this.sort
   },
   updated(){
-    this.list = this.todoList;
+    //reset 할때 동기화가 안되서 이전데이터가 노출는 문제를 잡음
+    if(this.todoList.length !== this.list.length) this.list = this.todoList;
   }
 };
 </script>
