@@ -21,7 +21,7 @@ export default {
   methods: {
     addItem($item) {
       const date = new Date();
-      const today = `${date.getFullYear()}.${date.getMonth()}.${date.getDate()} ${date.getHours()}:${date.getMinutes()}:${date.getSeconds()}`;
+      const today = `${date.getFullYear()}.${date.getMonth()+1}.${date.getDate()} ${date.getHours()}:${date.getMinutes()}:${date.getSeconds()}`;
       const data = {
         todo: $item,
         key: this.idx,
