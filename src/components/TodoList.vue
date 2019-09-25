@@ -83,9 +83,6 @@ export default {
     updateList(){
       this.$emit('updateListEvent', this.list);
       this.slct = this.sort
-      console.log("updateList");
-      console.log(this.list);
-      console.log(this.todoList);
     }
   },
   components:{
@@ -93,7 +90,7 @@ export default {
   },
   created(){
     this.list = this.todoList;
-    this.slct = this.sort
+    this.slct = this.sort;
   },
   updated(){
     //reset 할때 동기화가 안되서 이전데이터가 노출는 문제를 잡음

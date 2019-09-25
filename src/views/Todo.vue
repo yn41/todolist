@@ -61,15 +61,12 @@ export default {
       this.todoList[$idx].todo = $todo;
       const data = this.todoList[$idx];
       localStorage.setItem($key, JSON.stringify(data));
-      console.log("--modiItem---");
     },
     resetAll() {
-      console.log();
       this.todoList = [];
       this.idx = 0;
       localStorage.clear();
       this.getCnt();
-      console.log(this.todoList);
     },
     chageSort($type) {
       this.sort = $type;
