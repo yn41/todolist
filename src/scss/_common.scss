@@ -252,3 +252,45 @@ header{
         font-weight: $bold;
     }
 }
+.calender{
+    width: 1200px;
+    margin:50px auto 0;
+    h1{
+        margin-bottom: 35px;
+    }
+    .wrap{
+        .bx{
+            float: left;
+            width: 14.28%;
+            height: 120px;
+            padding: 15px 0 0 20px;
+            box-sizing: border-box;
+            &.sun{
+                color: red;
+            }
+            &.sat{
+                color:$point;
+            }
+            b{
+                display: block;
+            }
+        }
+        .tit{
+            &:after{
+                @include clear;
+            }
+            .bx{
+                padding: 0;
+                height: 40px;
+                line-height: 40px;
+                text-align:center;
+                background: rgba(255,255,255,0.2);
+            }
+        }
+        .cont{
+            .bx{
+                border-bottom:1px solid rgba(255,255,255,0.2);
+            }
+        }
+    }
+}
