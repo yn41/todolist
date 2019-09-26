@@ -13,9 +13,9 @@
                     <option value="ing">진행순</option>
                     <option value="user">사용자모드</option>
                 </select>
-            </div>
+            </div>  
             <draggable class="lst" ghost-class="ghost" v-model="list" @start="chageSort('user')" @end="updateList"> 
-                <div class="unit" v-for="(item, i) in list" :key="item.key" v-bind:class="item.isDone?'done':''">
+                <div class="unit" v-for="(item, i) in todoList" :key="item.key" v-bind:class="item.isDone?'done':''">
                     <div v-if="!item.isMode" class="view"  @click="toggleItem(item.key, i,item.isDone)">
                         <span class="txt">{{item.todo}}</span>
                         <button type="button" class="btn_modi"  @click="chageMode(item.key, i, item.isMode)">수정</button>
@@ -25,10 +25,14 @@
                         </span>
                     </div>
                     <div v-else class="modi">
-                        <!-- form 2개 이상 일때 해결 방법을 못찾음 -->
-                        <input type="text" name="" id="" class="ipt" placeholder="할일을 입력해주세요!"  v-focus v-bind:value="item.todo" ref="todo_modi" @keyup.enter="modiItem(item.key, i)">
-                        <button type="button" class="btn_cancle" @click="chageMode(item.key, i, item.isMode)"><span>취소</span></button>
-                        <button type="button" class="btn_com" @click="modiItem(item.key, i)">수정 완료</button>
+                        <!-- form 2개 이상 일때 해결 방법은 다음과 같습니다. -->
+                        <!-- changeItem 공통으로 summit 호출이 될수 있도록 하고 각 버튼 또는 키보드 동작시 구분값을 주어 구현합니다. -->
+                        <!-- 기존 Enter키값은 없어도 자동 summit 호출되기 때문에 삭제하고 대신 ESC키를 통해 작성 취소(cancle)를 할수 있게 해봤습니다. -->
+                         <form @submit.prevent="changeItem('ok',item.key, i, item.isMode)">
+                            <input type="text" name="" id="" class="ipt" placeholder="할일을 입력해주세요!"  v-focus v-bind:value="item.todo" ref="todo_modi" @keyup.esc="changeItem('cancle',item.key, i, item.isMode)" >
+                            <button type="button" class="btn_cancle" @click="changeItem('cancle', item.key, i, item.isMode)"><span>취소</span></button>
+                            <button type="button" class="btn_com" @click="changeItem('ok', item.key, i, item.isMode)">수정 완료</button>
+                        </form>
                     </div>
                 </div>
             </draggable>
@@ -43,10 +47,10 @@ import draggable from 'vuedraggable';
 export default {
   data() {
     return {
-      list:[],
+      list:this.todoList,
       enabled: true,
       dragging: false,
-      slct:"",
+      slct:this.sort,
     };
   },
   props: ['todoList', 'cnt', 'sort'],
@@ -82,19 +86,21 @@ export default {
     },
     updateList(){
       this.$emit('updateListEvent', this.list);
-      this.slct = this.sort
+      this.slct = this.sort    
+    },
+    changeItem($action,$key, i, $isMode){
+      switch($action){
+        case "cancle":
+            this.chageMode($key, i, $isMode)
+          break;
+          case "ok":
+            this.modiItem($key, i);
+          break;
+      }
     }
   },
   components:{
     draggable
   },
-  created(){
-    this.list = this.todoList;
-    this.slct = this.sort;
-  },
-  updated(){
-    //reset 할때 동기화가 안되서 이전데이터가 노출는 문제를 잡음
-    if(this.todoList.length !== this.list.length) this.list = this.todoList;
-  }
 };
 </script>
