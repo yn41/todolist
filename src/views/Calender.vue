@@ -1,6 +1,12 @@
 <template>
   <div class="calender">
-    <h1>{{month}}월</h1>
+    <div class="top">
+      <h1>{{toDay.year}}년 {{toDay.month+1}}월</h1>
+      <div class="btns">
+        <button type="button" @click="getPrevMonth">이전달</button>
+        <button type="button" @click="getNextMonth">다음달</button>
+      </div>
+    </div>
     <CalenderVeiw :list="list"/>
   </div>
 </template>
@@ -12,24 +18,25 @@ export default {
     return {
       list:[],
       month:0,
+      toDay:{
+        year : new Date().getFullYear(),        
+        month: new Date().getMonth(),      
+        date: new Date().getDate(),
+        day: new Date().getDay(),
+        key: new Date().getFullYear()+new Date().getMonth()+new Date().getDate()+new Date().getDay()
+      },
       day: ['일요일', '월요일', '화요일', '수요일', '목요일', '금요일', '토요일']
     }
   },
   methods:{
     settingCalendar(){
-      let date = new Date();
-      let toDay = {
-        year : date.getFullYear(),        
-        month: date.getMonth()+1,      
-        date: date.getDate(),
-        day: date.getDay()
-      }
-      let doDate = new Date(date.getFullYear(),date.getMonth(), 1);
-      let lastDate = new Date(date.getFullYear(),date.getMonth()+1, 0);
-      this.month = doDate.getMonth()+1;
-
+      this.list = [];
+      console.log("달력을 만드러 드립니다~");
+      let doDate = new Date(this.toDay.year, this.toDay.month, 1);
+      let lastDate = new Date(this.toDay.year,this.toDay.month+1, 0);
+      console.log(this.toDay.month);
       for(let i = 1; i <= lastDate.getDate(); i++){
-        let temp = new Date(date.getFullYear(),date.getMonth(),i);
+        let temp = new Date(this.toDay.year,this.toDay.month,i);
         let tempData = {
           year : temp.getFullYear(),
           month: temp.getMonth()+1,
@@ -37,9 +44,6 @@ export default {
           day: temp.getDay()
         }
         this.list[i-1] = tempData;
-        // if(i !== 1 && tempData.day == 6){
-        //   console.log("토욜입니다.");
-        // }
       }
       if(doDate.getDay() !== 0){
         for(let i = 0; i<7; i++){
@@ -55,7 +59,32 @@ export default {
             this.list.unshift(tempData);
         }
       }
-      console.log(this.list);
+      console.log("달력 완료");
+    },
+    getPrevMonth(){
+      this.toDay.month--
+      let temp = new Date(this.toDay.year,this.toDay.month,1);
+      let tempData = {
+        year : temp.getFullYear(),
+        month: temp.getMonth(),
+        date: temp.getDate(),
+        day: temp.getDay()
+      }
+      console.log(temp);
+      this.toDay = tempData;
+      this.settingCalendar();
+    },
+    getNextMonth(){
+      this.toDay.month++
+      let temp = new Date(this.toDay.year,this.toDay.month,1);
+      let tempData = {
+        year : temp.getFullYear(),
+        month: temp.getMonth(),
+        date: temp.getDate(),
+        day: temp.getDay()
+      }
+      this.toDay = tempData; 
+      this.settingCalendar();
     }
   },
   created(){

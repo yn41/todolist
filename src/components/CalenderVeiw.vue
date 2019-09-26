@@ -10,8 +10,8 @@
             <div class="bx sat"><b>토요일</b></div>
         </div>
         <div class="cont">
-            <div class="bx" v-for="item in list" :key="item.date" v-bind:class="item.day == 0?'sun':(item.day == 6?'sat':'')">
-                <b>{{item.date}}</b>
+            <div class="bx" v-for="item in list" :key="item.key" v-bind:class="item.day == 0?'sun':(item.day == 6?'sat':'')">
+                <b v-if="item.date !== 0">{{item.date}}</b>
                 <!-- <div class="cont">
                     내용
                 </div> -->
