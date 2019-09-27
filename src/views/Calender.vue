@@ -12,6 +12,7 @@
 </template>
 <script>
 import CalenderVeiw from '@/components/CalenderVeiw.vue';
+import axios from 'axios';
 
 export default {
   data(){
@@ -25,13 +26,38 @@ export default {
         day: new Date().getDay(),
         key: new Date().getFullYear()+new Date().getMonth()+new Date().getDate()+new Date().getDay()
       },
-      day: ['일요일', '월요일', '화요일', '수요일', '목요일', '금요일', '토요일']
+      day: ['일요일', '월요일', '화요일', '수요일', '목요일', '금요일', '토요일'],
+      //인증키 발급시 utf-8로 인코딩되서 줘서 디코딩을 해줘야함
+      serviceKey:decodeURIComponent("VN%2BdeeEAr2XgLFywD98WjBFfbqh6bahBMb%2Bxjr0kgK%2BCyOzHGHmtcyKc46YINx8VwWmiHWbm2vf48d6B%2F2C5WQ%3D%3D"),
+      restList:[],
     }
   },
   methods:{
     settingCalendar(){
+      //api 세팅
+      let solMonth = (this.toDay.month<10)? "0" +( this.toDay.month+1) : (this.toDay.month+1);
+      //serviceKey
+      const baseURI = 'http://localhost:8080/B090041/openapi/service/SpcdeInfoService/getHoliDeInfo';
+      axios.get(baseURI, {
+        params:{
+          'serviceKey' : this.serviceKey,
+          'solYear': this.toDay.year,
+          'solMonth': solMonth,
+          '_type':'json'
+        }
+      }).then((res)=>{
+        console.log(res);
+        this.restList = res.data.response.body.items.item;
+        console.log(this.restList);
+        this.buildCalendar();
+      }).catch((e)=>{
+        console.log(e);
+        this.buildCalendar("err");
+      });
+    },
+    buildCalendar($result){
+      console.log(this.restList);
       this.list = [];
-      console.log("달력을 만드러 드립니다~");
       let doDate = new Date(this.toDay.year, this.toDay.month, 1);
       let lastDate = new Date(this.toDay.year,this.toDay.month+1, 0);
       for(let i = 1; i <= lastDate.getDate(); i++){
@@ -40,7 +66,8 @@ export default {
           year : temp.getFullYear(),
           month: temp.getMonth()+1,
           date: temp.getDate(),
-          day: temp.getDay()
+          day: temp.getDay(),
+          rest:false
         }
         this.list[i-1] = tempData;
       }
@@ -48,7 +75,8 @@ export default {
         year : doDate.getFullYear(),
         month: doDate.getMonth()+1,
         date: 0,
-        day: null
+        day: null,
+        rest:false
       }
       if(doDate.getDay() !== 0){
         for(let i = 0; i<7; i++){
@@ -62,7 +90,6 @@ export default {
           this.list.push(tempData);
         }
       }
-      console.log("달력 세팅 완료");
     },
     getPrevMonth(){
       this.toDay.month--
@@ -71,7 +98,8 @@ export default {
         year : temp.getFullYear(),
         month: temp.getMonth(),
         date: temp.getDate(),
-        day: temp.getDay()
+        day: temp.getDay(),
+        rest:false
       }
       this.toDay = tempData;
       this.settingCalendar();
@@ -87,7 +115,7 @@ export default {
       }
       this.toDay = tempData; 
       this.settingCalendar();
-    }
+    },
   },
   created(){
     this.settingCalendar();

@@ -4,5 +4,8 @@ module.exports = {
   css: {
     sourceMap: true,
   },
-  outputDir: 'dist',
-};
+  devServer: {
+    proxy: 'http://apis.data.go.kr/'
+  }
+}; 
+ 
