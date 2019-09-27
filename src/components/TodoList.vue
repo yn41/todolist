@@ -15,7 +15,7 @@
                 </select>
             </div>
             <draggable class="lst" ghost-class="ghost" v-model="list" @start="chageSort('user')" @end="updateList"> 
-                <div class="unit" v-for="(item, i) in list" :key="item.key" v-bind:class="item.isDone?'done':''">
+                <div class="unit" v-for="(item, i) in todoList" :key="item.key" v-bind:class="item.isDone?'done':''">
                     <div v-if="!item.isMode" class="view"  @click="toggleItem(item.key, i,item.isDone)">
                         <span class="txt">{{item.todo}}</span>
                         <button type="button" class="btn_modi"  @click="chageMode(item.key, i, item.isMode)">수정</button>
@@ -26,9 +26,11 @@
                     </div>
                     <div v-else class="modi">
                         <!-- form 2개 이상 일때 해결 방법을 못찾음 -->
-                        <input type="text" name="" id="" class="ipt" placeholder="할일을 입력해주세요!"  v-focus v-bind:value="item.todo" ref="todo_modi" @keyup.enter="modiItem(item.key, i)">
-                        <button type="button" class="btn_cancle" @click="chageMode(item.key, i, item.isMode)"><span>취소</span></button>
-                        <button type="button" class="btn_com" @click="modiItem(item.key, i)">수정 완료</button>
+                        <form @submit.prevent="modiItem(item.key, i)">
+                          <input type="text" name="" id="" class="ipt" placeholder="할일을 입력해주세요!"  v-focus v-bind:value="item.todo" ref="todo_modi" >
+                          <button type="button" class="btn_cancle" @click="chageMode(item.key, i, item.isMode)"><span>취소</span></button>
+                          <button type="submit" class="btn_com" @click="modiItem(item.key, i)">수정 완료</button>
+                        </form>
                     </div>
                 </div>
             </draggable>
@@ -43,10 +45,8 @@ import draggable from 'vuedraggable';
 export default {
   data() {
     return {
-      list:[],
-      enabled: true,
-      dragging: false,
-      slct:"",
+      list:this.todoList,
+      slct:this.sort,
     };
   },
   props: ['todoList', 'cnt', 'sort'],
@@ -88,13 +88,5 @@ export default {
   components:{
     draggable
   },
-  created(){
-    this.list = this.todoList;
-    this.slct = this.sort;
-  },
-  updated(){
-    //reset 할때 동기화가 안되서 이전데이터가 노출는 문제를 잡음
-    if(this.todoList.length !== this.list.length) this.list = this.todoList;
-  }
 };
 </script>

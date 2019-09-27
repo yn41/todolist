@@ -34,7 +34,6 @@ export default {
       console.log("달력을 만드러 드립니다~");
       let doDate = new Date(this.toDay.year, this.toDay.month, 1);
       let lastDate = new Date(this.toDay.year,this.toDay.month+1, 0);
-      console.log(this.toDay.month);
       for(let i = 1; i <= lastDate.getDate(); i++){
         let temp = new Date(this.toDay.year,this.toDay.month,i);
         let tempData = {
@@ -45,21 +44,25 @@ export default {
         }
         this.list[i-1] = tempData;
       }
+      let tempData = {
+        year : doDate.getFullYear(),
+        month: doDate.getMonth()+1,
+        date: 0,
+        day: null
+      }
       if(doDate.getDay() !== 0){
         for(let i = 0; i<7; i++){
-          let tempData = {
-            year : doDate.getFullYear(),
-            month: doDate.getMonth()+1,
-            date: 0,
-            day: null
-          }
-          if(i == doDate.getDay())
-            break;
-          else
-            this.list.unshift(tempData);
+          if(i == doDate.getDay()) break;
+          else this.list.unshift(tempData);
         }
       }
-      console.log("달력 완료");
+      if(lastDate.getDay() !== 6){
+        let leangh = 6 - lastDate.getDay();
+        for(let i = 0; i<leangh; i++){
+          this.list.push(tempData);
+        }
+      }
+      console.log("달력 세팅 완료");
     },
     getPrevMonth(){
       this.toDay.month--
@@ -70,7 +73,6 @@ export default {
         date: temp.getDate(),
         day: temp.getDay()
       }
-      console.log(temp);
       this.toDay = tempData;
       this.settingCalendar();
     },

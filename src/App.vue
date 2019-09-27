@@ -1,15 +1,15 @@
 <template>
   <div id="app">
-    <todoHeader/>
+    <planHeader/>
     <router-view/>
   </div>
 </template>
-<script>
-import todoHeader from '@/components/TodoHeader.vue';
+<script> 
+import planHeader from '@/components/Header.vue';
 
 export default {
   components: {
-    todoHeader,
+    planHeader,
   },
 };
 </script>
