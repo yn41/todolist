@@ -7,5 +7,5 @@ module.exports = {
   devServer: {
     proxy: 'http://apis.data.go.kr/'
   }
-}; 
+}
  

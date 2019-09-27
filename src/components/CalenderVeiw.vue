@@ -10,11 +10,10 @@
             <div class="bx sat"><b>토요일</b></div>
         </div>
         <div class="cont">
-            <div class="bx" v-for="item in list" :key="item.key" v-bind:class="item.day == 0?'sun':(item.day == 6?'sat':'')">
+            <!-- //공휴일 y 국경일 c 일욜일 sun 토요일 sat 평일 n -->
+            <div class="bx" v-for="item in list" :key="item.key" v-bind:class="item.isHoliday == 'sun'?'sun':(item.isHoliday == 'sat'?'sat':(item.isHoliday =='y'?'rest':''))">
                 <b v-if="item.date !== 0">{{item.date}}</b>
-                <!-- <div class="cont">
-                    내용
-                </div> -->
+                <span>{{item.rest}}</span>
             </div>
         </div>
     </div>
