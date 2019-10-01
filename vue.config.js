@@ -5,7 +5,7 @@ module.exports = {
     sourceMap: true,
   },
   devServer: {
-    proxy: 'http://apis.data.go.kr/'
+    proxy: '//apis.data.go.kr/'
   }
 }
  
