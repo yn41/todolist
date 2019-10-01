@@ -1,17 +1,19 @@
 <template>
   <div class="calender">
-    <div class="top">
+    <!-- <div class="top">
       <h1>{{toDay.year}}년 {{toDay.month+1}}월</h1>
       <div class="btns">
         <button type="button" @click="getPrevMonth">이전달</button>
         <button type="button" @click="getNextMonth">다음달</button>
       </div>
-    </div>
-    <CalenderVeiw :list="list"/>
+    </div> -->
+    <CalenderHeader :toDay="toDay" @getMonthEvent="getOtherMonth" @changeMounthEvent="changeMounth"/>
+    <CalenderVeiw :list="list" :api="api"/>
   </div>
 </template>
 <script>
 import CalenderVeiw from '@/components/CalenderVeiw.vue';
+import CalenderHeader from '@/components/CalenderHeader.vue';
 import axios from 'axios';
 
 export default {
@@ -32,11 +34,17 @@ export default {
       //인증키 발급시 utf-8로 인코딩되서 줘서 디코딩을 해줘야함
       serviceKey:decodeURIComponent("VN%2BdeeEAr2XgLFywD98WjBFfbqh6bahBMb%2Bxjr0kgK%2BCyOzHGHmtcyKc46YINx8VwWmiHWbm2vf48d6B%2F2C5WQ%3D%3D"),
       restList:[],
+      api:{
+        loading:false,
+        error:false
+      }
     }
   },
   methods:{
     settingCalendar(){
       //api 세팅
+      this.api.loading = true;
+      this.api.error = false;
       let solMonth = this.toDay.month + 1;
       solMonth = this.setDate(solMonth);
       //이 api는 2015년 ~ 2020년 공휴일만 가져옴
@@ -49,6 +57,7 @@ export default {
           '_type':'json'
         }
       }).then((res)=>{
+        this.api.loading = false;
         this.restList = [];
         if(res.data.response.body.totalCount > 1){
           //api 값 가져오기
@@ -62,6 +71,8 @@ export default {
         this.buildCalendar();
       }).catch((e)=>{
         console.log("--------------api error---------------");
+        this.api.loading = false;
+        this.api.error = true;
         console.log(e);
       });
     },
@@ -97,14 +108,12 @@ export default {
         }
       }
     },
-    getPrevMonth(){
-      this.toDay.month--;
-      let temp = new Date(this.toDay.year,this.toDay.month,1);
-      this.toDay = this.settingDate(temp,0);
-      this.settingCalendar();
-    },
-    getNextMonth(){
-      this.toDay.month++;
+    getOtherMonth($type){
+     console.log(this.toDay.year);
+     if($type =="prev") this.toDay.month--;
+      else if($type =="next") this.toDay.month++;
+      // else if($type =="year") 
+      // else this.toDay.month++;
       let temp = new Date(this.toDay.year,this.toDay.month,1);
       this.toDay = this.settingDate(temp,0);
       this.settingCalendar();
@@ -153,12 +162,16 @@ export default {
       else temp = $num;
       return temp;
     },
+    changeMounth($type){
+      console.log(this.toDay.year);
+    }
   },
   created(){
     this.settingCalendar();
   },
   components: {
     CalenderVeiw,
+    CalenderHeader
   },
 }
 </script>

@@ -23,6 +23,15 @@ header{
         }
     }
 }
+.ipt{
+    box-sizing: border-box;
+    background: none;
+    border:none;
+    &:focus, &:hover{
+        outline: none;
+        background: rgba(136,186,207,0.1); 
+    }
+}
 //todo wrap
 .todo{
     margin: 70px auto 0;
@@ -33,9 +42,6 @@ header{
         height: 45px;
         line-height: 45px;
         font-size: 14px;
-        box-sizing: border-box;
-        background: none;
-        border:none;
         &:focus, &:hover{
             outline: none;
             background: rgba(136,186,207,0.1);
@@ -252,41 +258,115 @@ header{
         font-weight: $bold;
     }
 }
+
+@-webkit-keyframes pulsate-bck {
+    0% {
+      -webkit-transform: scale(1);
+              transform: scale(1);
+    }
+    50% {
+      -webkit-transform: scale(0.9);
+              transform: scale(0.9);
+    }
+    100% {
+      -webkit-transform: scale(1);
+              transform: scale(1);
+    }
+  }
+@keyframes pulsate-bck {
+    0% {
+        -webkit-transform: scale(1);
+        transform: scale(1);
+    }
+    50% {
+        -webkit-transform: scale(0.9);
+        transform: scale(0.9);
+    }
+    100% {
+        -webkit-transform: scale(1);
+        transform: scale(1);
+    }
+  }
 .calender{
     width: 1200px;
     margin:50px auto 70px;
-    .top{
+    .bx_loading{
+        width: 100%;
+        height: 600px;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        h3{
+            font-size: 32px;
+            color:$point;
+            -webkit-animation: pulsate-bck 0.5s ease-in-out infinite both;
+            animation: pulsate-bck 0.5s ease-in-out infinite both; 
+        }
+    }
+    .header{
         line-height: 40px;
+        margin-bottom: 35px;
         &:after{
             @include clear;
         }
         h1{
-            margin-bottom: 35px;
             float:left;
+            font-size: 28px;
+        }
+        button{
+            margin: -2px 10px 0;
+            padding: 10px 15px;
+            background: $point;
+            border-radius: 5px;
+            color: $white;
+            display: inline-block;
+            vertical-align: middle;
         }
         .btns{
             float: right;
-            button{
-                margin: 0 10px;
-                padding: 10px 15px;
-                background: $point;
-                border-radius: 5px;
-                color: $white;
+        }
+        .slct{
+            width: 90px;
+            margin-right: 10px;
+            padding: 0 5px;
+            color:rgba(255,255,255,0.9);
+            font-weight: bold;
+            font-size: 24px;
+            height: 40px;
+            background: rgba(119,178,202,0.7);
+            border-radius: 5px;
+            border: none;
+            &:focus{
+                outline: none;
+            }
+            &.month{
+                width: 70px;
             }
         }
+        
     }
     .wrap{
+        .info{
+            text-align: right;
+            color: $red;
+            margin-top: 15px;
+        }
         .bx{
             float: left;
             width: 14.28%;
-            height: 120px;
+            min-height: 120px;
             padding: 15px 0 0 20px;
             box-sizing: border-box;
-            &.sun,&.rest{
+            &.sun,&.rest1{
                 color: red;
             }
             &.sat{
                 color:$point;
+            }
+            &.rest2{
+                span{
+                    color:$point;
+                }
             }
             b{
                 display: block;
@@ -298,7 +378,7 @@ header{
             }
             .bx{
                 padding: 0;
-                height: 40px;
+                min-height: 40px;
                 line-height: 40px;
                 text-align:center;
                 background: rgba(255,255,255,0.2);

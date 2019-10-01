@@ -45,9 +45,16 @@ button {
   outline:none;
   padding: 0;
 }
-input[type=text], input[type=password], input[type=tel], input[type=email], input[type=button], input[type=submit], input[type=reset], button, select {
+input,input[type=text], input[type=password], input[type=tel], input[type=email], input[type=button], input[type=submit], input[type=reset],input[type=number], button, select {
   font-family:$family;
   color:$black;
+}
+
+input[type=number]::-webkit-inner-spin-button,
+input[type=number]::-webkit-outer-spin-button {
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  appearance: none;
 }
 
 a {
