@@ -49,6 +49,7 @@ export default {
       solMonth = this.setDate(solMonth);
       //이 api는 2015년 ~ 2020년 공휴일만 가져옴
       const baseURI = 'http://apis.data.go.kr/B090041/openapi/service/SpcdeInfoService/getHoliDeInfo'; 
+      // const baseURI = '//localhost:8080/B090041/openapi/service/SpcdeInfoService/getHoliDeInfo';
       axios.get(baseURI, {
         params:{
           'serviceKey' : this.serviceKey,
