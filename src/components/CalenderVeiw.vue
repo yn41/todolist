@@ -17,8 +17,8 @@
                     <span>{{item.rest}}</span>
                 </div>
             </div>
-            <p class="info" v-if="list[0].year > 2020 || list[0].year < 2015">>* 공휴일 Api는 2015년부터 내년까지 공휴일 제공 됩니다.</p>
-            <p class="info" v-if="api.error">* 공휴일 Api 오류가 발생했습니다!</p>
+            <p class="info" v-if="list[0].year > 2020 || list[0].year < 2015"><b>* 공휴일 Api는 2015년부터 내년까지 공휴일 제공 됩니다.</b></p>
+            <p class="info" v-if="api.error"><b>* 공휴일은 api 보안문제로 로컬에서만 확인 가능합니다!</b></p>
         </div>
         <div v-else class="bx_loading">
             <h3>Loading...</h3>
