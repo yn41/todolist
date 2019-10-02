@@ -137,6 +137,7 @@ export default {
       if(this.todoList.length > 0)
         this.idx = this.todoList[this.todoList.length - 1].key + 1;
     };
+    
   },
   components: {
     TodoInput,
